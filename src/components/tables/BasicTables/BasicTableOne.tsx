@@ -5,6 +5,8 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table";
+import { useState } from "react";
+import { Link } from "react-router";
 import Badge from "../../ui/badge/Badge";
 
 interface Paciente {
@@ -20,6 +22,11 @@ interface Paciente {
   temperatura: number;
   fechaRegistro: string;
 }
+
+interface Props {
+  onSelectPaciente: (paciente: Paciente) => void;
+}
+
 
 // Datos de ejemplo para la tabla médica
 const pacientesData: Paciente[] = [
@@ -90,9 +97,10 @@ const pacientesData: Paciente[] = [
   },
 ];
 
-export default function TablaRegistrosMedicos() {
+export default function TablaRegistrosMedicos({ onSelectPaciente }: Props) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+    
       <div className="max-w-full overflow-x-auto">
         <Table>
           {/* Encabezado de la tabla */}
@@ -182,9 +190,11 @@ export default function TablaRegistrosMedicos() {
                   {paciente.fechaRegistro}
                 </TableCell>
                 <TableCell className="px-4 py-3 text-start">
-                  <button className="px-3 py-1 text-sm text-white bg-sky-500 rounded-md hover:bg-sky-600 transition-colors">
-                    Ver detalles
-                  </button>
+                  <Link to="/form-elements">
+                    <button className="px-3 py-1 text-sm text-white bg-sky-500 rounded-md hover:bg-sky-600 transition-colors">
+                      Ver detalles
+                    </button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

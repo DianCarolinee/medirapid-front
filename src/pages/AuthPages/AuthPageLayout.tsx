@@ -13,22 +13,21 @@ export default function AuthLayout({
       <div className="relative flex flex-col justify-center w-full h-screen lg:flex-row dark:bg-gray-900 sm:p-0">
         {children}
         
-        {/* Sección de imagen con mejoras */}
+        {}
         <div className="hidden lg:block lg:w-1/2 h-full overflow-hidden group relative">
           <img 
             src={imageUrl}
             alt="Panel de autenticación"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
-              // Fallback visual si la imagen no carga
+              
               const target = e.target as HTMLImageElement;
               target.style.display = "none";
               target.parentElement!.classList.add("bg-gradient-to-br", "from-blue-500", "to-purple-600");
             }}
-            loading="lazy" // Carga diferida para mejor performance
+            loading="lazy" 
           />
           
-          {/* Overlay para mejor contraste (opcional) */}
           <div className="absolute inset-0 bg-black/10 hover:bg-black/20 transition-all duration-300" />
         </div>
 
