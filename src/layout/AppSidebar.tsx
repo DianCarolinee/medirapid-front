@@ -23,17 +23,17 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Panel de indicadores",
-    subItems: [{ name: "Indicadores", path: "/", pro: false }],
+    subItems: [{ name: "Indicadores", path: "/dashboard", pro: false }],
   },
   {
     name: "Formulario de Triaje",
     icon: <ListIcon />,
-    subItems: [{ name: "Triaje", path: "/form-elements", pro: false }],
+    subItems: [{ name: "Triaje", path: "/triaje", pro: false }],
   },
   {
     name: "Tablero de pacientes",
     icon: <TableIcon />,
-    subItems: [{ name: "Pacientes", path: "/basic-tables", pro: false }],
+    subItems: [{ name: "Pacientes", path: "/pacientes", pro: false }],
   },
 ];
 

@@ -52,7 +52,7 @@ export default function SignInForm() {
                 <div className="flex items-center justify-between">
                 </div>
                 <div>
-                  <Link to="/">
+                  <Link to="/dashboard">
                   <Button className="w-full" 
                   size="sm">
                     Iniciar Sesión
