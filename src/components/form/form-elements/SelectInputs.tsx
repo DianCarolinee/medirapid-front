@@ -2,9 +2,14 @@ import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
 import Select from "../Select";
+import { usePacientes } from "../../../context/PacientesContext"; // Importa el hook de contexto
 
 export default function MedicalForm() {
+  const { addPaciente } = usePacientes(); // Usa el hook para acceder a addPaciente
+
   // Estados para cada campo
+  const [apellidoPaterno, setApellidoPaterno] = useState<string>("");
+  const [apellidoMaterno, setApellidoMaterno] = useState<string>("");
   const [sex, setSex] = useState<string>("");
   const [age, setAge] = useState<string>("");
   const [arrivalMode, setArrivalMode] = useState<string>("");
@@ -18,8 +23,9 @@ export default function MedicalForm() {
   const [hr, setHr] = useState<string>("");
   const [rr, setRr] = useState<string>("");
   const [bt, setBt] = useState<string>("");
+  const [spO2, setSpO2] = useState<string>(""); // Nuevo estado para SpO2
 
-  // Opciones para los selects
+  // Opciones para los selects (mantener igual)
   const sexOptions = [
     { value: "Femenino", label: "Femenino" },
     { value: "Masculino", label: "Masculino" },
@@ -50,11 +56,80 @@ export default function MedicalForm() {
     { value: "1", label: "Sí" },
   ];
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validaciones básicas antes de guardar
+    if (!apellidoPaterno || !apellidoMaterno || !sex || !age || !arrivalMode || !chiefComplain || !mentalState || !hasPain || !sbp || !dbp || !hr || !rr || !bt || !spO2) {
+      alert("Por favor, completa todos los campos obligatorios.");
+      return;
+    }
+
+    const newPaciente = {
+      apellidoPaterno,
+      apellidoMaterno,
+      sexo: sex,
+      edad: parseInt(age),
+      arrivalMode,
+      injury,
+      chiefComplain,
+      mentalState,
+      hasPain,
+      painScale: parseInt(painScale),
+      sbp: parseInt(sbp),
+      dbp: parseInt(dbp),
+      hr: parseInt(hr),
+      rr: parseInt(rr),
+      bt: parseFloat(bt),
+      spO2: parseInt(spO2),
+    };
+
+    addPaciente(newPaciente);
+
+    // Limpiar el formulario después de guardar
+    setApellidoPaterno("");
+    setApellidoMaterno("");
+    setSex("");
+    setAge("");
+    setArrivalMode("");
+    setInjury("");
+    setChiefComplain("");
+    setMentalState("");
+    setHasPain("");
+    setPainScale("0");
+    setSbp("");
+    setDbp("");
+    setHr("");
+    setRr("");
+    setBt("");
+    setSpO2("");
+  };
+
   return (
     <ComponentCard title="Formulario Médico">
-      <div className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Información básica */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Label>Apellido Paterno</Label>
+            <input
+              type="text"
+              value={apellidoPaterno}
+              onChange={(e) => setApellidoPaterno(e.target.value)}
+              placeholder="Ingresa el apellido paterno"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-dark-900 dark:border-gray-700 dark:text-white"
+            />
+          </div>
+          <div>
+            <Label>Apellido Materno</Label>
+            <input
+              type="text"
+              value={apellidoMaterno}
+              onChange={(e) => setApellidoMaterno(e.target.value)}
+              placeholder="Ingresa el apellido materno"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-dark-900 dark:border-gray-700 dark:text-white"
+            />
+          </div>
           <div>
             <Label>Sexo</Label>
             <Select
@@ -222,7 +297,7 @@ export default function MedicalForm() {
           </div>
         </div>
 
-        {/* Temperatura */}
+        {/* Temperatura y SpO2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <Label>Temperatura (°C)</Label>
@@ -237,8 +312,27 @@ export default function MedicalForm() {
               step="0.1"
             />
           </div>
+          <div>
+            <Label>SpO2 (%)</Label>
+            <input
+              type="number"
+              value={spO2}
+              onChange={(e) => setSpO2(e.target.value)}
+              placeholder="Ej: 98"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-dark-900 dark:border-gray-700 dark:text-white"
+              min="0"
+              max="100"
+            />
+          </div>
         </div>
-      </div>
+
+        <button
+          type="submit"
+          className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:hover:bg-indigo-800"
+        >
+          Guardar Registro Médico
+        </button>
+      </form>
     </ComponentCard>
   );
 }

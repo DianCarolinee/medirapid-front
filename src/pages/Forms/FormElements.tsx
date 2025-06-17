@@ -9,7 +9,7 @@ export default function FormElements() {
   return (
     <div className="w-full">
       <PageMeta
-        title="Formulario Médico | TailAdmin - React.js Admin Dashboard Template"
+        title="Formulario Médico | Medi-Rapid"
         description="Formulario médico completo para registro de pacientes"
       />
       <PageBreadcrumb pageTitle="Formulario Médico" />

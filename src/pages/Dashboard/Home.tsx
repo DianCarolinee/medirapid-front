@@ -24,7 +24,7 @@ const getCapacityColor = (capacity: number): string => {
   return (
     <>
       <PageMeta
-        title="Dashboard Médico | TailAdmin - React.js Admin Dashboard Template"
+        title="Dashboard | Medi-Rapid"
         description="Dashboard médico con pronóstico de pacientes y capacidad de uso"
       />
       
