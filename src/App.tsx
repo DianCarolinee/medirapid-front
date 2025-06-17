@@ -17,6 +17,8 @@ import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
+//import NuevoTriaje from "./pages/Forms/NuevoTriaje";
+
 
 export default function App() {
   return (
@@ -34,7 +36,8 @@ export default function App() {
             <Route path="/blank" element={<Blank />} />
 
             {/* Forms */}
-            <Route path="/triaje" element={<FormElements />} />
+           { /*<Route path="/nuevo-triaje" element={<NuevoTriaje />} />*/}
+            <Route path="/nuevo-triaje" element={<FormElements />} />
 
             {/* Tables */}
             <Route path="/pacientes" element={<BasicTables />} />

@@ -7,7 +7,9 @@ import {
 } from "../../ui/table";
 import { Link } from "react-router";
 import Badge from "../../ui/badge/Badge";
+import { usePacientes } from "../../../context/PacientesContext"; // Asegúrate de que la ruta sea correcta
 
+// La interfaz Paciente debería ser la misma que en PacientesContext.tsx
 interface Paciente {
   id: number;
   apellidoPaterno: string;
@@ -15,88 +17,18 @@ interface Paciente {
   sexo: string;
   edad: number;
   nivelTriaje: string;
-  frecuenciaCardiaca: number;
+  frecuencia_cardiaca: number;
   presionArterial: string;
   spO2: number;
   temperatura: number;
   fechaRegistro: string;
 }
 
-
-
-// Datos de ejemplo para la tabla médica
-const pacientesData: Paciente[] = [
-  {
-    id: 1,
-    apellidoPaterno: "García",
-    apellidoMaterno: "López",
-    sexo: "Masculino",
-    edad: 35,
-    nivelTriaje: "Urgente",
-    frecuenciaCardiaca: 88,
-    presionArterial: "120/80",
-    spO2: 98,
-    temperatura: 36.5,
-    fechaRegistro: "2023-05-15 08:30",
-  },
-  {
-    id: 2,
-    apellidoPaterno: "Martínez",
-    apellidoMaterno: "Sánchez",
-    sexo: "Femenino",
-    edad: 42,
-    nivelTriaje: "Emergencia",
-    frecuenciaCardiaca: 102,
-    presionArterial: "140/90",
-    spO2: 92,
-    temperatura: 37.8,
-    fechaRegistro: "2023-05-15 09:15",
-  },
-  {
-    id: 3,
-    apellidoPaterno: "Rodríguez",
-    apellidoMaterno: "Gómez",
-    sexo: "Masculino",
-    edad: 28,
-    nivelTriaje: "Prioritario",
-    frecuenciaCardiaca: 76,
-    presionArterial: "110/70",
-    spO2: 99,
-    temperatura: 36.2,
-    fechaRegistro: "2023-05-15 10:45",
-  },
-  {
-    id: 4,
-    apellidoPaterno: "Hernández",
-    apellidoMaterno: "Díaz",
-    sexo: "Femenino",
-    edad: 50,
-    nivelTriaje: "No urgente",
-    frecuenciaCardiaca: 72,
-    presionArterial: "130/85",
-    spO2: 97,
-    temperatura: 36.8,
-    fechaRegistro: "2023-05-15 11:30",
-  },
-  {
-    id: 5,
-    apellidoPaterno: "Pérez",
-    apellidoMaterno: "Fernández",
-    sexo: "Masculino",
-    edad: 65,
-    nivelTriaje: "Urgente",
-    frecuenciaCardiaca: 95,
-    presionArterial: "150/95",
-    spO2: 94,
-    temperatura: 38.2,
-    fechaRegistro: "2023-05-15 12:15",
-  },
-];
-
 export default function TablaRegistrosMedicos() {
+  const { pacientes } = usePacientes(); // Obtén los pacientes del contexto
+
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-    
       <div className="max-w-full overflow-x-auto">
         <Table>
           {/* Encabezado de la tabla */}
@@ -140,8 +72,8 @@ export default function TablaRegistrosMedicos() {
 
           {/* Cuerpo de la tabla */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {pacientesData.map((paciente) => (
-              <TableRow key={paciente.id}>
+            {pacientes.map((paciente) => (
+              <TableRow key={paciente.id}> {/* Usa paciente.id como key */}
                 <TableCell className="px-5 py-4 sm:px-6 text-start font-medium text-gray-800 dark:text-white/90">
                   {paciente.apellidoPaterno}
                 </TableCell>
@@ -171,7 +103,7 @@ export default function TablaRegistrosMedicos() {
                   </Badge>
                 </TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {paciente.frecuenciaCardiaca} bpm
+                  {paciente.frecuencia_cardiaca} bpm
                 </TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   {paciente.presionArterial} mmHg
@@ -186,7 +118,7 @@ export default function TablaRegistrosMedicos() {
                   {paciente.fechaRegistro}
                 </TableCell>
                 <TableCell className="px-4 py-3 text-start">
-                  <Link to="/triaje">
+                  <Link to={`/triaje/${paciente.id}`}> {/* Podrías pasar el ID para edición */}
                     <button className="px-3 py-1 text-sm text-white bg-sky-500 rounded-md hover:bg-sky-600 transition-colors">
                       Editar
                     </button>

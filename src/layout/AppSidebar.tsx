@@ -6,8 +6,6 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
-  PlugInIcon,
   TableIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -24,11 +22,6 @@ const navItems: NavItem[] = [
     icon: <GridIcon />,
     name: "Panel de indicadores",
     subItems: [{ name: "Indicadores", path: "/dashboard", pro: false }],
-  },
-  {
-    name: "Formulario de Triaje",
-    icon: <ListIcon />,
-    subItems: [{ name: "Triaje", path: "/triaje", pro: false }],
   },
   {
     name: "Tablero de pacientes",
@@ -293,6 +286,20 @@ const AppSidebar: React.FC = () => {
             </div>
           </div>
         </nav>
+      </div>
+            <div className="mt-auto pb-6 px-2 lg:px-0">
+        {(isExpanded || isHovered || isMobileOpen) ? (
+          <div className="text-sm text-gray-600 dark:text-gray-300 leading-snug">
+            <p className="mb-1">Bienvenido,</p>
+            <p className="font-semibold truncate">Dr. Jorge L. Huapaya E.</p>
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <span className="text-[10px] text-gray-400 rotate-[-90deg] whitespace-nowrap">
+              Dr. J. H.
+            </span>
+          </div>
+        )}
       </div>
     </aside>
   );
