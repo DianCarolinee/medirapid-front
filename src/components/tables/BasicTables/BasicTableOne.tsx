@@ -10,19 +10,6 @@ import Badge from "../../ui/badge/Badge";
 import { usePacientes } from "../../../context/PacientesContext"; // Asegúrate de que la ruta sea correcta
 
 // La interfaz Paciente debería ser la misma que en PacientesContext.tsx
-interface Paciente {
-  id: number;
-  apellidoPaterno: string;
-  apellidoMaterno: string;
-  sexo: string;
-  edad: number;
-  nivelTriaje: string;
-  frecuencia_cardiaca: number;
-  presionArterial: string;
-  spO2: number;
-  temperatura: number;
-  fechaRegistro: string;
-}
 
 export default function TablaRegistrosMedicos() {
   const { pacientes } = usePacientes(); // Obtén los pacientes del contexto
